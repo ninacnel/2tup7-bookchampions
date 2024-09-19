@@ -14,6 +14,8 @@ const Books = ({ books }) => {
       {books.map((book) => (
         <BookItem
           key={book.id}
+          id={book.id}
+          summary={book.summary}
           titleProp={book.bookTitle}
           author={book.author}
           rating={book.bookRating.length}

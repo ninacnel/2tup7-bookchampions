@@ -6,13 +6,11 @@ import Books from "../books/Books";
 const Dashboard = () => {
     const [booksFiltered, setBooksFiltered] = useState(allBooks);
   
-  
     const saveBookDataHandler = (enteredBookData) => {
       const bookData = {
         ...enteredBookData,
         id: Math.random(),
       };
-  
   
       setBooksFiltered([bookData, ...booksFiltered]);
     };
@@ -20,8 +18,7 @@ const Dashboard = () => {
   
     const searchHandler = (searchInput) => {
       if (searchInput === "") setBooksFiltered(allBooks);
-  
-  
+   
       const searchInputUpperCase = searchInput.toUpperCase();
       const booksSearched = allBooks.filter((book) =>
         book.bookTitle.toUpperCase().includes(searchInputUpperCase)
