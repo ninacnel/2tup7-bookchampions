@@ -10,6 +10,7 @@ const Login = ({ onLogin }) => {
         email: false,
         password: false,
     });
+    const [error, setError] =useState(null);
 
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -42,10 +43,41 @@ const Login = ({ onLogin }) => {
             return;
         }
 
-        alert(`email: ${email} password: ${password}`);
+        handleLogin(email, password);
         onLogin();
         navigate("/comments");
     };
+
+    const handleLogin = async (email, password) => {
+        try {
+          const res = await fetch("https://localhost:7120/api/Authentication", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+    
+    
+          if (!res.ok) {
+            throw res;
+          }
+    
+    
+          const data = await res.text();
+    
+    
+          localStorage.setItem("bookchampions-token", data);
+          setError(null);
+    
+    
+          return true;
+        } catch (error) {
+          setError(error.status);
+          return false;
+        }
+      };
+    
 
     return (
         <Card className="mt-5 mx-3 p-3 px-5 shadow">
