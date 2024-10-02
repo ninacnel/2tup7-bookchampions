@@ -5,7 +5,7 @@ import Books from "../books/Books";
 import { Button } from "react-bootstrap";
 
 const Dashboard = () => {
-    const [booksFiltered, setBooksFiltered] = useState(allBooks);
+    const [booksFiltered, setBooksFiltered] = useState([]);
     const [count, setCount]= useState(0);
 
     useEffect(() => {
