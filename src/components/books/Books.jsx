@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import BookItem from "../bookItem/BookItem";
 
-const Books = ({ books }) => {
+const Books = ({ books, onDelete }) => {
   return (
     <div
       style={{
@@ -21,6 +21,7 @@ const Books = ({ books }) => {
           rating={book.bookRating.length}
           pageCount={book.pageCount}
           imageUrl={book.imageUrl}
+          onDelete={onDelete}
         />
       ))}
     </div>
@@ -29,6 +30,7 @@ const Books = ({ books }) => {
 
 Books.propTypes = {
   books: PropTypes.array,
+  onDelete: PropTypes.func,
 };
 
 export default Books;

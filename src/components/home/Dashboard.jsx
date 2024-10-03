@@ -3,6 +3,7 @@ import { allBooks } from "../../data/data";
 import NewBook from "../newBook/NewBook";
 import Books from "../books/Books";
 import { Button } from "react-bootstrap";
+import ToggleTheme from "../toggleTheme/ToggleTheme";
 
 const Dashboard = () => {
     const [booksFiltered, setBooksFiltered] = useState([]);
@@ -75,6 +76,19 @@ const Dashboard = () => {
         });
     };
   
+    const deleteHandle = (id)=>{
+      fetch(`https://localhost:7120/api/Book/${id}`, {
+        method: "DELETE",
+        headers: {
+          accept: "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("bookchampions-token")}`
+        },
+      })
+      .then(()=>{
+        const updatedBooks = booksFiltered.filter((book)=> book.id !== id);
+        setBooksFiltered(updatedBooks);
+      })
+    };
   
   
     const searchHandler = (searchInput) => {
@@ -92,10 +106,10 @@ const Dashboard = () => {
       <div className="d-flex flex-column align-items-center">
         <h2>Books Champion App</h2>
         <p>¡Quiero leer libros!</p>
-        <h3>Count: {count}</h3>
+        <ToggleTheme/>
         <Button onClick={()=>setCount(count+1)}>Rerender</Button>
         <NewBook onBookDataSaved={saveBookDataHandler} />
-        <Books onSearch={searchHandler} books={booksFiltered} />
+        <Books onSearch={searchHandler} books={booksFiltered} onDelete={deleteHandle} />
         </div>
     );
   };
